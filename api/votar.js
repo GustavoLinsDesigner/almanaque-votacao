@@ -1,3 +1,9 @@
+// Cabeçalhos para o Supabase: chaves novas (sb_secret_...) vão só em apikey; a legada (JWT) vai também em Authorization
+function headers(key, extra) {
+  const h = Object.assign({ apikey: key }, extra || {});
+  if (!key.startsWith('sb_')) h.Authorization = 'Bearer ' + key;
+  return h;
+}
 // POST /api/votar — grava uma resposta no Supabase
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ erro: 'Use POST' });
@@ -12,7 +18,7 @@ module.exports = async (req, res) => {
   const comentarios = body.comentarios && typeof body.comentarios === 'object' ? body.comentarios : {};
   const r = await fetch(url + '/rest/v1/votos', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', apikey: key, Authorization: 'Bearer ' + key, Prefer: 'return=minimal' },
+    headers: headers(key, { 'Content-Type': 'application/json', Prefer: 'return=minimal' }),
     body: JSON.stringify({ nome, votos, comentarios })
   });
   if (!r.ok) return res.status(502).json({ erro: 'Supabase: ' + (await r.text()) });

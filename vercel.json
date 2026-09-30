@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/resultados",
+      "destination": "/resultados.html"
+    }
+  ]
+}

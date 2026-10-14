@@ -53,10 +53,12 @@ Envie só o link principal (`SEU-LINK.vercel.app`). Quem recebe não precisa de 
 
 ## Fase 2 · Proposta de design (out 2026)
 
+Estrutura do site: `/` landing (index.html) · `/evolucao` página de evolução com as abas · `/proposta` proposta completa (botão flutuante Baixar PDF) · `/votacao` questionário da fase 1 (encerrado) · `/resultados?k=CHAVE` consolidado das duas fases (abas Fase 1 / Fase 2).
+
 Novos arquivos: `public/evolucao.html` (página de evolução com a Aba 2 de votação), `public/proposta.html` (proposta completa, 26 páginas), `public/src/img/proposta/` (miniaturas), `public/dados/votos-2026-10.json`, `api/aprovar.js`, `api/aprovacoes.js`, `supabase-aprovacoes.sql`.
 
 1. **Supabase**: SQL Editor → New query → cole `supabase-aprovacoes.sql` → Run (cria a tabela `aprovacoes`).
-2. **PDF**: exporte a proposta em PDF e salve como `public/proposta.pdf` (o botão "PDF" da Aba 2 aponta para esse nome).
+2. **PDF**: não precisa gerar arquivo; a própria página `/proposta` tem o botão "Baixar PDF" (imprime em A4).
 3. **GitHub**: suba a pasta `public` inteira, a pasta `api` e o `vercel.json` novo. A Vercel republica sozinha.
 4. **Links**: `SEU-LINK.vercel.app/evolucao` (equipe vota aqui) · `SEU-LINK.vercel.app/proposta` (proposta completa) · `SEU-LINK.vercel.app/evolucao?k=SUA_CHAVE` (mesma chave de resultados; mostra os votos e comentários por item dentro da Aba 2).
 

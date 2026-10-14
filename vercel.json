@@ -1,8 +1,7 @@
 {
   "rewrites": [
-    {
-      "source": "/resultados",
-      "destination": "/resultados.html"
-    }
+    { "source": "/resultados", "destination": "/resultados.html" },
+    { "source": "/evolucao", "destination": "/evolucao.html" },
+    { "source": "/proposta", "destination": "/proposta.html" }
   ]
 }

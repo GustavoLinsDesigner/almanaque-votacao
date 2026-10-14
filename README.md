@@ -18,9 +18,9 @@ Site de votação (página inicial) + página de resultados protegida por chave,
 1. Entre em https://supabase.com e clique em **Start your project** (pode entrar com a conta do GitHub).
 2. Clique em **New project**. Preencha: nome `almanaque-votacao`, uma senha qualquer para o banco (guarde), região **South America (São Paulo)**. Clique em **Create new project** e espere ~1 minuto.
 3. No menu da esquerda, clique em **SQL Editor** → **New query**. Abra o arquivo `supabase.sql` desta pasta, copie todo o conteúdo, cole no editor e clique em **Run**. Deve aparecer "Success".
-4. Ainda no menu da esquerda: **Project Settings** (ícone de engrenagem) → **API**. Copie e guarde num bloco de notas:
-   - **Project URL** (algo como `https://abcdefgh.supabase.co`)
-   - **service_role** key (em "Project API keys"; clique em *Reveal* para mostrar). Essa chave é secreta: nunca coloque no HTML nem compartilhe.
+4. Ainda no menu da esquerda: **Project Settings** (ícone de engrenagem) → **API Keys**. Copie e guarde num bloco de notas:
+   - Em **Secret keys**, a chave `default` (começa com `sb_secret_`): clique no ícone de olho para revelar e no ícone de copiar. Essa chave é secreta: nunca coloque no HTML nem compartilhe. Não use a *Publishable key*.
+   - A **Project URL**: em **Project Settings** → **General**, copie o *Project ID* (ex.: `abcdefgh`) e monte a URL `https://abcdefgh.supabase.co`. Ou pegue em **Data API** → *Project URL*.
 
 ### 2. GitHub — subir o código (5 min)
 
@@ -50,6 +50,17 @@ Site de votação (página inicial) + página de resultados protegida por chave,
 ### 5. Compartilhar
 
 Envie só o link principal (`SEU-LINK.vercel.app`). Quem recebe não precisa de conta nem login. Guarde o link de resultados com a chave só para você.
+
+## Fase 2 · Proposta de design (out 2026)
+
+Novos arquivos: `public/evolucao.html` (página de evolução com a Aba 2 de votação), `public/proposta.html` (proposta completa, 26 páginas), `public/src/img/proposta/` (miniaturas), `public/dados/votos-2026-10.json`, `api/aprovar.js`, `api/aprovacoes.js`, `supabase-aprovacoes.sql`.
+
+1. **Supabase**: SQL Editor → New query → cole `supabase-aprovacoes.sql` → Run (cria a tabela `aprovacoes`).
+2. **PDF**: exporte a proposta em PDF e salve como `public/proposta.pdf` (o botão "PDF" da Aba 2 aponta para esse nome).
+3. **GitHub**: suba a pasta `public` inteira, a pasta `api` e o `vercel.json` novo. A Vercel republica sozinha.
+4. **Links**: `SEU-LINK.vercel.app/evolucao` (equipe vota aqui) · `SEU-LINK.vercel.app/proposta` (proposta completa) · `SEU-LINK.vercel.app/evolucao?k=SUA_CHAVE` (mesma chave de resultados; mostra os votos e comentários por item dentro da Aba 2).
+
+Para atualizar a proposta: edite o arquivo no projeto, regere as miniaturas e os dois HTML, suba de novo.
 
 ## Atualizar a página depois
 

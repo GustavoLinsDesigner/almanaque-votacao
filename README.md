@@ -1,15 +1,30 @@
-# Votação de estilo · Almanaque Avaliação e Evidências
+# Projeto de design · Almanaque de Experiências e Serviços (CGEV/DAE/Enap)
 
-Site de votação (página inicial) + página de resultados protegida por chave, hospedado na Vercel com banco Supabase.
+Site do projeto gráfico (landing, evolução, proposta, votações e resultados protegidos por chave), hospedado na Vercel com banco Supabase. Repositório: `GustavoLinsDesigner/almanaque-votacao`; publica em almanaque-votacao.vercel.app.
+
+Atualizado em nov 2026. As seções "Passo a passo (do zero)" e "Fase 2" abaixo são o registro de como o site foi montado; o modo atual de publicar está em "Atualizar o site".
 
 ## O que tem aqui
 
-- `public/index.html` — página de votação (quem recebe o link vota aqui)
-- `public/resultados.html` — consolidado dos votos (só abre com a chave)
-- `api/votar.js` — recebe o voto e grava no Supabase
-- `api/resultados.js` — devolve os votos para a página de resultados
-- `supabase.sql` — cria a tabela no banco
-- `vercel.json` — faz `/resultados` abrir a página de resultados
+- `public/index.html` — landing com os três cartões
+- `public/evolucao.html` — evolução do projeto: Aba 1 (pesquisa de estilo, resultados) e Aba 2 (votação da proposta, 17 itens)
+- `public/proposta.html` — proposta de design, 39 páginas A4, botão "Baixar PDF"
+- `public/votacao.html` — questionário da fase 1 (encerrado; ainda no formato de pacote único)
+- `public/resultados.html` — consolidado das duas fases (só abre com a chave)
+- `public/support.js`, `doc-page.js`, `image-slot.js`, `public/vendor/` — runtime das páginas, React e fontes servidos pelo próprio site
+- `public/src/img/` — imagens das páginas · `public/dados/` — votos da fase 1
+- `api/votar.js`, `api/resultados.js` (fase 1) · `api/aprovar.js`, `api/aprovacoes.js` (fase 2)
+- `supabase.sql` (tabela `votos`) · `supabase-aprovacoes.sql` (tabela `aprovacoes`)
+- `vercel.json` — faz `/votacao`, `/resultados`, `/evolucao` e `/proposta` abrirem as páginas
+
+## Atualizar o site
+
+Os `.html` de `public/` são gerados a partir das fontes `.dc.html` do projeto (fora deste repositório) pelo script `tools/gerar_public.py`. Não edite os `.html` aqui.
+
+1. Edite a fonte no projeto e rode `python3 tools/gerar_public.py`.
+2. Crie um branch, faça commit e push. A Vercel gera um endereço de preview para o branch.
+3. Confira o diff e o preview (checklist do `CLAUDE.md` do projeto).
+4. Com a aprovação, faça merge em `main`. A Vercel republica em ~1 minuto. Para voltar atrás: `git revert`.
 
 ## Passo a passo (do zero)
 
@@ -55,7 +70,7 @@ Envie só o link principal (`SEU-LINK.vercel.app`). Quem recebe não precisa de 
 
 Estrutura do site: `/` landing (index.html) · `/evolucao` página de evolução com as abas · `/proposta` proposta completa (botão flutuante Baixar PDF) · `/votacao` questionário da fase 1 (encerrado) · `/resultados?k=CHAVE` consolidado das duas fases (abas Fase 1 / Fase 2).
 
-Novos arquivos: `public/evolucao.html` (página de evolução com a Aba 2 de votação), `public/proposta.html` (proposta completa, 26 páginas), `public/src/img/proposta/` (miniaturas), `public/dados/votos-2026-10.json`, `api/aprovar.js`, `api/aprovacoes.js`, `supabase-aprovacoes.sql`.
+Novos arquivos: `public/evolucao.html` (página de evolução com a Aba 2 de votação), `public/proposta.html` (proposta completa, 26 páginas na primeira versão; hoje 39), `public/src/img/proposta/` (miniaturas), `public/dados/votos-2026-10.json`, `api/aprovar.js`, `api/aprovacoes.js`, `supabase-aprovacoes.sql`.
 
 1. **Supabase**: SQL Editor → New query → cole `supabase-aprovacoes.sql` → Run (cria a tabela `aprovacoes`).
 2. **PDF**: não precisa gerar arquivo; a própria página `/proposta` tem o botão "Baixar PDF" (imprime em A4).
@@ -63,10 +78,6 @@ Novos arquivos: `public/evolucao.html` (página de evolução com a Aba 2 de vot
 4. **Links**: `SEU-LINK.vercel.app/evolucao` (equipe vota aqui) · `SEU-LINK.vercel.app/proposta` (proposta completa) · `SEU-LINK.vercel.app/evolucao?k=SUA_CHAVE` (mesma chave de resultados; mostra os votos e comentários por item dentro da Aba 2).
 
 Para atualizar a proposta: edite o arquivo no projeto, regere as miniaturas e os dois HTML, suba de novo.
-
-## Atualizar a página depois
-
-Troque o arquivo em `public/` no GitHub (abra o arquivo → ícone de lápis ou **Upload files** de novo → Commit). A Vercel republica sozinha em ~1 minuto.
 
 ## Se algo der errado
 
